@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5510e3bdd24cd544adef4378f75f371, type: 3}
   m_Name: LevelSceneConfig
   m_EditorClassIdentifier: 
-  InputSystemConfig:
-    HoldButtonTimeForSpecialAttack: 0.15
+  BodyRotateSpeed: 10

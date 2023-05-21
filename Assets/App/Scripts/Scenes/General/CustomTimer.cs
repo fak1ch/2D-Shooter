@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace App.Scripts.Scenes.MainScene.Entities.SkillsModuleSystem
+namespace App.Scripts.Scenes.General
 {
     public class CustomTimer
     {

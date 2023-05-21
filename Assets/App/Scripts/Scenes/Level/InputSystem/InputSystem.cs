@@ -1,6 +1,5 @@
 using System;
 using App.Scripts.General.UI.ButtonSpace;
-using App.Scripts.Scenes.MainScene.Entities.SkillsModuleSystem;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.MainScene.Input
@@ -8,10 +7,12 @@ namespace App.Scripts.Scenes.MainScene.Input
     public class InputSystem : MonoBehaviour
     {
         public event Action OnShootButtonClicked;
+        public event Action OnReloadButtonClicked;
 
         public Vector2 MoveInput { get; private set; }
         
         [SerializeField] private CustomButton _shootButton;
+        [SerializeField] private CustomButton _reloadButton;
         [SerializeField] private Joystick _moveJoystick;
         
         [SerializeField] private LevelConfigScriptableObject levelConfig;
@@ -21,11 +22,13 @@ namespace App.Scripts.Scenes.MainScene.Input
         private void OnEnable()
         {
             _shootButton.OnClickOccurred.AddListener(SendOnShootButtonClickedEvent);
+            _reloadButton.OnClickOccurred.AddListener(SendOnReloadButtonClickedEvent);
         }
 
         private void OnDisable()
         {
             _shootButton.OnClickOccurred.RemoveListener(SendOnShootButtonClickedEvent);
+            _reloadButton.OnClickOccurred.RemoveListener(SendOnReloadButtonClickedEvent);
         }
 
         #endregion
@@ -62,6 +65,11 @@ namespace App.Scripts.Scenes.MainScene.Input
         private void SendOnShootButtonClickedEvent()
         {
             OnShootButtonClicked?.Invoke();
+        }
+        
+        private void SendOnReloadButtonClickedEvent()
+        {
+            OnReloadButtonClicked?.Invoke();
         }
     }
 }
