@@ -15,7 +15,6 @@ namespace App.Scripts.Scenes.MainScene.Input
         [SerializeField] private Joystick _moveJoystick;
         
         [SerializeField] private LevelConfigScriptableObject levelConfig;
-        private InputSystemConfig _config => levelConfig.InputSystemConfig;
 
         #region Events
 

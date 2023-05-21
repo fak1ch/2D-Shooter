@@ -17,8 +17,8 @@ namespace App.Scripts.General.UI.ButtonSpace
         [SerializeField] private ButtonScriptableObject _settings;
 
         [Space(10)] 
-        [SerializeField] private bool _playButtonClickSound = true;
-        [SerializeField] private bool _waitTillTheEndAnimation = true;
+        [SerializeField] private bool _playButtonClickSound = false;
+        [SerializeField] private bool _waitTillTheEndAnimation = false;
         [SerializeField] private bool _animateButton = false;
 
         public UnityEvent OnClickOccurred;

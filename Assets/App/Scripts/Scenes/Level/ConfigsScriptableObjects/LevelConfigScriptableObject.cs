@@ -1,11 +1,10 @@
-﻿using App.Scripts.Scenes.MainScene.Input;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace App.Scripts.Scenes
 {
-    [CreateAssetMenu(menuName = "App/MainSceneConfig", fileName = "MainSceneConfig")]
+    [CreateAssetMenu(menuName = "App/LevelSceneConfig", fileName = "LevelSceneConfig")]
     public class LevelConfigScriptableObject : ScriptableObject
     {
-        public InputSystemConfig InputSystemConfig;
+        
     }
 }
