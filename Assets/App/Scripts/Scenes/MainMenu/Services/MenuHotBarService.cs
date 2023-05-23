@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuHotBarService : MonoBehaviour
+public class 
+    MenuHotBarService : MonoBehaviour
 {
     [SerializeField] private Button _backBtn;
     [SerializeField] private Button _shopBtn;

@@ -1,15 +1,15 @@
-#if UNITY_EDITOR
-
 using System;
 using UnityEditor;
 using UnityEngine;
 
 namespace App.Scripts.General.LoadScene
 {
+    #if UNITY_EDITOR
+    
     public partial class SceneInformation : ISerializationCallbackReceiver
     {
         public SceneAsset scene;
-        
+
         public void OnBeforeSerialize()
         {
             if (scene != null)
@@ -28,6 +28,8 @@ namespace App.Scripts.General.LoadScene
         }
     }
 
+    #endif
+    
     [Serializable]
     public partial class SceneInformation
     {
@@ -35,5 +37,3 @@ namespace App.Scripts.General.LoadScene
         public string sceneName;
     }
 }
-
-#endif

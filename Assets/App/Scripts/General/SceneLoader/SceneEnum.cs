@@ -3,6 +3,5 @@
     public enum SceneEnum 
     {
         Level,
-        MainMenu,
     }
 }

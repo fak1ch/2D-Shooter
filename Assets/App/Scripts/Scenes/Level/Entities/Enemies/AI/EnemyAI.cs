@@ -59,6 +59,8 @@ namespace App.Scripts.Scenes.MainScene.Entities.Enemies
             }
         }
 
+        #if UNITY_EDITOR
+        
         private void OnDrawGizmosSelected()
         {
             Handles.color = Color.red;
@@ -66,5 +68,7 @@ namespace App.Scripts.Scenes.MainScene.Entities.Enemies
             Handles.color = Color.blue;
             Handles.DrawWireDisc(transform.position, new Vector3(0, 0, 1), _config.TriggerRadius);
         }
+        
+        #endif
     }
 }

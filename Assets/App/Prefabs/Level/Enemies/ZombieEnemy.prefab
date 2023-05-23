@@ -519,8 +519,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config:
-    TriggerRadius: 5
-    AttackDistance: 2
+    TriggerRadius: 7
+    AttackDistance: 1.5
   _movableComponent: {fileID: 2884361755422152817}
   _attackComponent: {fileID: 4602345185996772398}
 --- !u!61 &4960758732125820320

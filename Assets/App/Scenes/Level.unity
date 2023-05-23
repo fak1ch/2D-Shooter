@@ -14495,7 +14495,7 @@ MonoBehaviour:
   _config:
     TriggerRadius: 3
   _circle: {fileID: 1025799416}
-  _yOffset: 1.5
+  _yOffset: 1.2
 --- !u!114 &1025799409
 MonoBehaviour:
   m_ObjectHideFlags: 0

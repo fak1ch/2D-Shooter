@@ -16,6 +16,3 @@ MonoBehaviour:
   - scene: {fileID: 102900000, guid: 3fc8acdd13e6c734bafef6554d6fdbcd, type: 3}
     sceneEnumEnum: 0
     sceneName: Level
-  - scene: {fileID: 102900000, guid: c7a6b1dec3181b44f9bd0f3a32562bdf, type: 3}
-    sceneEnumEnum: 1
-    sceneName: MainMenu

@@ -15,6 +15,7 @@ namespace App.Scripts.Scenes.MainScene.Entities.Enemies
         [SerializeField] private int _attackCooldown;
 
         private CustomTimer _attackCooldownTimer;
+        private bool _attackStarted = false;
 
         private void Start()
         {
@@ -31,6 +32,9 @@ namespace App.Scripts.Scenes.MainScene.Entities.Enemies
         
         public void StartAttack()
         {
+            if(_attackStarted) return;
+            _attackStarted = true;
+            
             if(_attackCooldownTimer.TimerStarted) return;
             _attackCooldownTimer.StartTimer(_attackCooldown);
             
@@ -42,6 +46,7 @@ namespace App.Scripts.Scenes.MainScene.Entities.Enemies
 
         private void EndAttack()
         {
+            _attackStarted = false;
             _movableComponent.SetCanMove(true);
             _hitBox.SetEnable(false);
         }
@@ -53,8 +58,8 @@ namespace App.Scripts.Scenes.MainScene.Entities.Enemies
         
         private void HandleTriggerCollider2D(Collider2D col)
         {
-            if(_attackCooldownTimer.TimerStarted) return;
-            
+            if(_attackStarted == false) return;
+
             if (col.TryGetComponent(out Character character))
             {
                 character.HealthComponent.TakeDamage(_basicAttack);
