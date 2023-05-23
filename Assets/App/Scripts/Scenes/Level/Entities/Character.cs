@@ -18,13 +18,6 @@ namespace App.Scripts.Scenes.MainScene.Entities
 
         private void CharacterDieCallback()
         {
-            gameObject.SetActive(false);
-            StartCoroutine(RestartSceneRoutine());
-        }
-
-        private IEnumerator RestartSceneRoutine()
-        {
-            yield return new WaitForSeconds(2f);
             SceneLoader.Instance.LoadScene(SceneEnum.Level);
         }
     }
