@@ -151,7 +151,7 @@ MonoBehaviour:
   _config:
     MoveSpeed: 25
     Lifetime: 0.5
-    Damage: 3
+    Damage: 1
   _rigidbody2D: {fileID: 7014191405963365317}
 --- !u!96 &6445826469179152903
 TrailRenderer:

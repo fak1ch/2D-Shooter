@@ -1,31 +1,38 @@
-﻿using System;
-using App.Scripts.Scenes.MainScene.Entities.Enemies;
+﻿using App.Scripts.Scenes.MainScene.Entities.Enemies;
 using App.Scripts.Scenes.MainScene.Input;
-using UnityEditor;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.MainScene.Entities.Rotations
 {
     public class PlayerBodyRotation : MonoBehaviour
     {
+        public Enemy Target { get; private set; }
+
         [SerializeField] private InputSystem _inputSystem;
         [SerializeField] private Transform _body;
         [SerializeField] private LevelConfigScriptableObject _levelConfig;
         [SerializeField] private PlayerBodyRotationConfig _config;
-
-        private Enemy _target;
+        [SerializeField] private SpriteRenderer _circle;
+        [SerializeField] private float _yOffset = 0.2f;
 
         private void Update()
         {
             FindTarget();
             RotateBody();
+            DrawCircle();
+        }
+
+        private void DrawCircle()
+        {
+            Color color = Target == null ? Color.white : Color.green;
+            _circle.color = color;
         }
 
         private void RotateBody()
         {
             Vector2 rotateDirection = new Vector2(0, 1);
             
-            if (_target == null)
+            if (Target == null)
             {
                 if (_inputSystem.MoveInput.Equals(Vector2.zero) == false)
                 {
@@ -34,7 +41,9 @@ namespace App.Scripts.Scenes.MainScene.Entities.Rotations
             }
             else
             {
-                Vector2 distance = transform.position - _target.transform.position;
+                Vector3 targetPosition = Target.transform.position;
+                targetPosition.y -= _yOffset;
+                Vector2 distance = transform.position - targetPosition;
                 rotateDirection = distance.normalized;
             }
             
@@ -49,7 +58,17 @@ namespace App.Scripts.Scenes.MainScene.Entities.Rotations
         
         private void FindTarget()
         {
-            if(_target != null) return;
+            if (Target != null)
+            {
+                if (Target.IsDie)
+                {
+                    Target = null;
+                }
+                else
+                {
+                    return;
+                }
+            }
 
             Collider2D[] targetColliders = new Collider2D[4];
             int targetCollidersSize = Physics2D.OverlapCircleNonAlloc(transform.position, _config.TriggerRadius, targetColliders);
@@ -60,18 +79,17 @@ namespace App.Scripts.Scenes.MainScene.Entities.Rotations
                 {
                     if (targetColliders[i].TryGetComponent(out Enemy enemy))
                     {
-                        _target = enemy;
+                        if(enemy.IsDie) continue;
+                        
+                        Target = enemy;
                         return;
                     }
                 }
             }
-        }
-
-        private void DrawCircle(SceneView view)
-        {
-            Handles.color = _target == null ? Color.white : Color.green;
-            
-            Handles.DrawWireDisc(transform.position, new Vector3(0, 0, 1), _config.TriggerRadius);
+            else
+            {
+                Target = null;
+            }
         }
     }
 }

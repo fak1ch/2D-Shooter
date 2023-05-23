@@ -1,4 +1,4 @@
-using App.Scripts.Scenes.MainScene.Entities.MovementSystem;
+﻿using App.Scripts.Scenes.MainScene.Entities.MovementSystem;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.MainScene.Entities

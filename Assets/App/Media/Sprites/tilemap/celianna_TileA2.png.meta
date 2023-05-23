@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -4303,8 +4303,8 @@ TextureImporter:
       celianna_TileA2_150: -92448028
       celianna_TileA2_146: 1070201819
       celianna_TileA2_32: 2017802107
-      celianna_TileA2_69: 96788487
       celianna_TileA2_90: 647235304
+      celianna_TileA2_69: 96788487
       celianna_TileA2_123: -1168243223
       celianna_TileA2_6: 28039205
       celianna_TileA2_153: 803938417

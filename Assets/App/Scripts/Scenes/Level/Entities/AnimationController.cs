@@ -25,6 +25,7 @@ public class AnimationController : MonoBehaviour
         private void Start()
         {
             _healthComponent.OnTakeDamage += PullTakeDamageTrigger;
+            _healthComponent.OnHealthEqualsZero += PullDieTrigger;
             
             _speedPercentHash = Animator.StringToHash("SpeedPercent");
             _dieTriggerHash = Animator.StringToHash("DieTrigger");

@@ -24,10 +24,10 @@ namespace App.Scripts.Scenes.MainScene.Entities
             int health = Health;
             
             _health = Mathf.Clamp(Health - value,0, MaxHealth);
-
+            
+            SendTakeDamageEvent(health - Health);
             SendHealthChangedEvent();
             CheckHealth();
-            SendTakeDamageEvent(health - Health);
         }
 
         public void RestoreHealth(int value)
