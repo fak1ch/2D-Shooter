@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: LevelSceneConfig
   m_EditorClassIdentifier: 
   BodyRotateSpeed: 10
+  StartEnemyCount: 3

@@ -6,36 +6,45 @@ namespace App.Scripts.Scenes.MainScene.Input
 {
     public class InputSystem : MonoBehaviour
     {
-        public event Action OnShootButtonClicked;
         public event Action OnReloadButtonClicked;
+        public event Action OnInventoryButtonClicked;
 
         public Vector2 MoveInput { get; private set; }
+        public bool ShootButtonHold { get; private set; }
         
         [SerializeField] private CustomButton _shootButton;
         [SerializeField] private CustomButton _reloadButton;
+        [SerializeField] private CustomButton _openInventoryButton;
         [SerializeField] private Joystick _moveJoystick;
-        
-        [SerializeField] private LevelConfigScriptableObject levelConfig;
 
         #region Events
 
         private void OnEnable()
         {
-            _shootButton.OnClickOccurred.AddListener(SendOnShootButtonClickedEvent);
             _reloadButton.OnClickOccurred.AddListener(SendOnReloadButtonClickedEvent);
+            _openInventoryButton.OnClickOccurred.AddListener(SendOnInventoryButtonClickedEvent);
+            
+            _shootButton.OnMouseDown.AddListener(() =>
+            {
+                ShootButtonHold = true;
+            });
+            
+            _shootButton.OnMouseUp.AddListener(() =>
+            {
+                ShootButtonHold = false;
+            });
         }
 
         private void OnDisable()
         {
-            _shootButton.OnClickOccurred.RemoveListener(SendOnShootButtonClickedEvent);
             _reloadButton.OnClickOccurred.RemoveListener(SendOnReloadButtonClickedEvent);
+            _openInventoryButton.OnClickOccurred.RemoveListener(SendOnInventoryButtonClickedEvent);
         }
 
         #endregion
 
         private void Update()
         {
-
             bool desktopInputSelected = false;
 
             #if UNITY_EDITOR
@@ -62,14 +71,14 @@ namespace App.Scripts.Scenes.MainScene.Input
             MoveInput = input;
         }
 
-        private void SendOnShootButtonClickedEvent()
-        {
-            OnShootButtonClicked?.Invoke();
-        }
-        
         private void SendOnReloadButtonClickedEvent()
         {
             OnReloadButtonClicked?.Invoke();
+        }
+        
+        private void SendOnInventoryButtonClickedEvent()
+        {
+            OnInventoryButtonClicked?.Invoke();
         }
     }
 }

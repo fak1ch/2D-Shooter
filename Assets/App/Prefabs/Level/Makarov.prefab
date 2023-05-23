@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 2656745615819764894}
   - component: {fileID: 2656745615819764895}
   - component: {fileID: 2656745615819764892}
+  - component: {fileID: 3533711025914294042}
   m_Layer: 0
   m_Name: Makarov
   m_TagString: Untagged
@@ -106,7 +107,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 1b4696d341b6ec443b4e499361de0675, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -131,13 +132,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config:
+    MaxStackCount: 1
+    StackCount: 1
+    Icon: {fileID: 21300000, guid: 1b4696d341b6ec443b4e499361de0675, type: 3}
+  _gunConfig:
     ShootingSpeed: 1
     ReloadTime: 1
+    AmmoSize: 8
     BulletStartPoint: {fileID: 2656745615010793505}
     BulletPoolData:
-      size: 10
+      size: 16
       container: {fileID: 2656745615010793505}
       prefab: {fileID: 4567044125487004244, guid: 616c0f8620bfb934596abfefedf8e491, type: 3}
+--- !u!61 &3533711025914294042
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2656745615819764889}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.14625049, y: 0.051895022}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.3473473, y: 0.4099099}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.64, y: 0.64}
+  m_EdgeRadius: 0
 --- !u!1 &2917083005308038007
 GameObject:
   m_ObjectHideFlags: 0

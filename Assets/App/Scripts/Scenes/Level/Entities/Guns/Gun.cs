@@ -15,12 +15,14 @@ namespace App.Scripts.Scenes.MainScene.Entities.Bullets
         public PoolData<Bullet> BulletPoolData;
     }
     
-    public class Gun : MonoBehaviour
+    public class Gun : Item, IUsable
     {
         public event Action<float> OnReload;
-        public float ReloadTime => _config.ReloadTime;
+        public float ReloadTime => _gunConfig.ReloadTime;
+
+        protected ItemCell _itemCell;
         
-        [SerializeField] private GunConfig _config;
+        [SerializeField] private GunConfig _gunConfig;
         
         private CustomTimer _shootingTimer;
         private CustomTimer _reloadTimer;
@@ -32,13 +34,9 @@ namespace App.Scripts.Scenes.MainScene.Entities.Bullets
         {
             _shootingTimer = new CustomTimer();
             _reloadTimer = new CustomTimer();
-            _bulletPool = new ObjectPool<Bullet>(_config.BulletPoolData);
+            _bulletPool = new ObjectPool<Bullet>(_gunConfig.BulletPoolData);
             
-            _ammoCount = _config.AmmoSize;
-            _reloadTimer.OnEnd += () =>
-            {
-                _ammoCount = _config.AmmoSize;
-            };
+            _ammoCount = _gunConfig.AmmoSize;
         }
 
         private void Update()
@@ -49,26 +47,49 @@ namespace App.Scripts.Scenes.MainScene.Entities.Bullets
 
         public void Shoot(bool entityRotatorFacingRight)
         {
-            if(_reloadTimer.TimerStarted) return;
-            if(_shootingTimer.TimerStarted) return;
-            _shootingTimer.StartTimer(_config.ShootingSpeed);
-            
-            Bullet bullet = _bulletPool.GetElement();
-            bullet.Initialize(_bulletPool, transform.eulerAngles, _config.BulletStartPoint.position, entityRotatorFacingRight);
-
-            _ammoCount--;
             if (_ammoCount <= 0)
             {
                 Reload();
+                return;
             }
+            
+            if(_reloadTimer.TimerStarted) return;
+            if(_shootingTimer.TimerStarted) return;
+            _shootingTimer.StartTimer(_gunConfig.ShootingSpeed);
+            
+            Bullet bullet = _bulletPool.GetElement();
+            bullet.Initialize(_bulletPool, transform.eulerAngles, _gunConfig.BulletStartPoint.position, entityRotatorFacingRight);
+            
+            _ammoCount--;
         }
 
         public void Reload()
         {
             if(_reloadTimer.TimerStarted) return;
-            _reloadTimer.StartTimer(_config.ReloadTime);
+            _reloadTimer.StartTimer(_gunConfig.ReloadTime);
             
-            OnReload?.Invoke(_config.ReloadTime);
+            AddBulletsToAmmo(_gunConfig.AmmoSize - _ammoCount);
+
+            OnReload?.Invoke(_gunConfig.ReloadTime);
+        }
+
+        protected virtual void AddBulletsToAmmo(int bullets)
+        {
+            _ammoCount += bullets;
+        }
+
+        public void Use(ItemCell itemCell)
+        {
+            _itemCell = itemCell;
+            itemCell.InventoryPopUp.GunSlot.SelectGun(this);
+            itemCell.InventoryPopUp.HidePopUp();
+
+            if (transform.localScale.x < 0)
+            {
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1;
+                transform.localScale = localScale;
+            }
         }
     }
 }

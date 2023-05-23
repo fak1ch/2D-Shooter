@@ -1,4 +1,5 @@
-﻿using App.Scripts.Scenes.MainScene.Input;
+﻿using System;
+using App.Scripts.Scenes.MainScene.Input;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.MainScene.Entities.Player
@@ -10,19 +11,20 @@ namespace App.Scripts.Scenes.MainScene.Entities.Player
 
         private void OnEnable()
         {
-            _inputSystem.OnShootButtonClicked += Shoot;
             _inputSystem.OnReloadButtonClicked += Reload;
         }
 
         private void OnDisable()
         {
-            _inputSystem.OnShootButtonClicked -= Shoot;
             _inputSystem.OnReloadButtonClicked -= Reload;
         }
 
-        private void Shoot()
+        private void Update()
         {
-            _gunSlot.Shoot();
+            if (_inputSystem.ShootButtonHold)
+            {
+                _gunSlot.Shoot();
+            }
         }
 
         private void Reload()

@@ -11,22 +11,19 @@ namespace App.Scripts.Scenes.MainScene.Entities
         public event Action<int> OnTakeDamage;
 
         public float HealthPercent => MathUtils.GetPercent(0, MaxHealth, Health);
-        public int MaxHealth { get; private set; }
-        public int Health { get; private set; }
+        public int MaxHealth => _maxHealth;
+        public int Health => _health;
 
+        [SerializeField] private int _maxHealth;
+        [SerializeField] private int _health;
+        
         private bool _isHealthEqualsZero = false;
-
-        public void Initialize(int maxHealth)
-        {
-            MaxHealth = maxHealth;
-            Health = MaxHealth;
-        }
 
         public void TakeDamage(int value)
         {
             int health = Health;
             
-            Health = Mathf.Clamp(Health - value,0, MaxHealth);
+            _health = Mathf.Clamp(Health - value,0, MaxHealth);
 
             SendHealthChangedEvent();
             CheckHealth();
@@ -36,13 +33,13 @@ namespace App.Scripts.Scenes.MainScene.Entities
         public void RestoreHealth(int value)
         {
             SendHealthChangedEvent();
-            Health = Mathf.Clamp(Health + value,0, MaxHealth);
+            _health = Mathf.Clamp(Health + value,0, MaxHealth);
         }
 
         public void RestoreFullHealth()
         {
             SendHealthChangedEvent();
-            Health = MaxHealth;
+            _health = MaxHealth;
         }
 
         private void SendHealthChangedEvent()

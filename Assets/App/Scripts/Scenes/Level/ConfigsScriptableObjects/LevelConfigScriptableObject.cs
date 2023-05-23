@@ -6,5 +6,6 @@ namespace App.Scripts.Scenes
     public class LevelConfigScriptableObject : ScriptableObject
     {
         public float BodyRotateSpeed = 40f;
+        public int StartEnemyCount;
     }
 }

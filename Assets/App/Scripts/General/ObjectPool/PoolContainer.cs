@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace App.Scripts.General.ObjectPool
 {
@@ -8,12 +10,12 @@ namespace App.Scripts.General.ObjectPool
     {
         private readonly PoolObjectInformation<T>[] _objectsInfo;
         private readonly Transform _poolContainer;
-        private readonly Dictionary<Type, ObjectPool<T>> pools;
+        protected readonly Dictionary<Type, ObjectPool<T>> _pools;
 
         protected PoolContainer(PoolObjectInformation<T>[] poolObjectInfos, Transform poolContainer)
         {
             _poolContainer = poolContainer;
-            pools = new Dictionary<Type, ObjectPool<T>>();
+            _pools = new Dictionary<Type, ObjectPool<T>>();
             _objectsInfo = poolObjectInfos;
             InitializePools();
         }
@@ -29,18 +31,18 @@ namespace App.Scripts.General.ObjectPool
                     prefab = info.Prefab
                 };
                 
-                pools.Add(info.Prefab.GetType(), new ObjectPool<T>(poolData));
+                _pools.Add(info.Prefab.GetType(), new ObjectPool<T>(poolData));
             }
         }
 
         protected T GetObjectFromPoolByType(Type type)
         {
-            return pools[type].GetElement();
+            return _pools[type].GetElement();
         }
 
-        protected void ReturnObjectToPool(T gameObject)
+        public void ReturnObjectToPool(T gameObject)
         {
-            pools[gameObject.GetType()].ReturnElementToPool(gameObject);
+            _pools[gameObject.GetType()].ReturnElementToPool(gameObject);
         }
     }
 }
